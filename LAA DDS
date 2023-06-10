@@ -1,0 +1,190 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Toritreat's GUI V3",
+   LoadingTitle = "Loading",
+   LoadingSubtitle = "Please wait",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Treat"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "5dB5ZSkw", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key System",
+      Subtitle = "Please get the key from our discord",
+      Note = "Key is needed",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"ToriTreat2023"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Player", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Scripts")
+Section:Set("Scripts")
+
+Rayfield:Notify({
+   Title = "Notification Title",
+   Content = "Thanks for using our scripts!",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Slider = Tab:CreateSlider({
+    Name = "Walkspeed",
+    Range = {0, 400},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Flag = "Slider1",
+    Callback = function(value)
+        local Players = game:GetService("Players")
+        local Player = Players.LocalPlayer
+        local Character = Player.Character
+        local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+        Humanoid.WalkSpeed = value
+    end
+})
+
+local Slider = Tab:CreateSlider({
+    Name = "JumpPower",
+    Range = {0, 400},
+    Increment = 10,
+    Suffix = "Power",
+    CurrentValue = 50,
+    Flag = "Slider1",
+    Callback = function(value)
+        local Players = game:GetService("Players")
+        local Player = Players.LocalPlayer
+        local Character = Player.Character
+        local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+        Humanoid.JumpPower = value
+    end
+})
+
+local Tab = Window:CreateTab("Scripts", 4483362458) -- Title, Image
+
+
+local Button = Tab:CreateButton({
+   Name = "Infinity yield",
+   Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Fates admin",
+   Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "CTRL + click = TP",
+   Callback = function()
+local UIS = game:GetService("UserInputService")
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+
+
+function GetCharacter()
+   return game.Players.LocalPlayer.Character
+end
+
+function Teleport(pos)
+   local Char = GetCharacter()
+   if Char then
+       Char:MoveTo(pos)
+   end
+end
+
+
+UIS.InputBegan:Connect(function(input)
+   if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+       Teleport(Mouse.Hit.p)
+   end
+end)
+
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "Rejoin",
+   Callback = function()
+
+Rayfield:Notify({
+   Title = "",
+   Content = "Rejoining...",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+     Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game:GetService("Players").LocalPlayer)
+
+   end,
+})
+
+local Tab = Window:CreateTab("Settings", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "Destroy GUI",
+   Callback = function()
+
+Rayfield:Notify({
+   Title = "We are sorry to see you go..",
+   Content = "",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Eh",
+         Callback = function()
+         print("The user tapped Okay!")
+          Name = "Okay?",
+         Callback = function()
+         print("The user tapped Okay!")
+
+          wait(2)
+
+                 Rayfield:Destroy()
+
+      end
+   },
+},
+})
+
+local ColorPicker = Tab:CreateColorPicker({
+    Name = "Color Picker",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        -- The function that takes place every time the color picker is moved/changed
+        -- The variable (Value) is a Color3fromRGB value based on which color is selected
+    end
+})
