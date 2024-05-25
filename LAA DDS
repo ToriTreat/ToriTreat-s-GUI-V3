@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
         FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
         SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
         GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-        Key = {"ToriTreat2023"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+        Key = {"Treats", "for kids"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
 })
 
@@ -58,7 +58,9 @@ local Slider = Tab:CreateSlider({
         local Player = Players.LocalPlayer
         local Character = Player.Character
         local Humanoid = Character:FindFirstChildOfClass("Humanoid")
-        Humanoid.WalkSpeed = value
+        if Humanoid then
+            Humanoid.WalkSpeed = value
+        end
     end
 })
 
@@ -74,7 +76,23 @@ local Slider = Tab:CreateSlider({
         local Player = Players.LocalPlayer
         local Character = Player.Character
         local Humanoid = Character:FindFirstChildOfClass("Humanoid")
-        Humanoid.JumpPower = value
+        if Humanoid then
+            Humanoid.JumpPower = value
+        end
+    end
+})
+
+Tab:CreateButton({
+    Name = "Sit",
+    Description = "Make your character sit (for fun)",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+        if humanoid then
+            humanoid.Sit = true
+        end
     end
 })
 
