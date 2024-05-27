@@ -26,9 +26,9 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
-local PlayerTab = Window:CreateTab("Player", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Player", 4483362458) -- Title, Image
 
-local Section = PlayerTab:CreateSection("Scripts")
+local Section = Tab:CreateSection("Scripts")
 Section:Set("Scripts")
 
 Rayfield:Notify({
@@ -46,7 +46,7 @@ Rayfield:Notify({
     }
 })
 
-local Slider = PlayerTab:CreateSlider({
+local Slider = Tab:CreateSlider({
     Name = "Walkspeed",
     Range = {0, 400},
     Increment = 1,
@@ -64,7 +64,7 @@ local Slider = PlayerTab:CreateSlider({
     end
 })
 
-local Slider = PlayerTab:CreateSlider({
+local Slider = Tab:CreateSlider({
     Name = "JumpPower",
     Range = {0, 400},
     Increment = 10,
@@ -82,7 +82,7 @@ local Slider = PlayerTab:CreateSlider({
     end
 })
 
-PlayerTab:CreateButton({
+Tab:CreateButton({
     Name = "Sit",
     Description = "Make your character sit (for fun)",
     Callback = function()
@@ -92,46 +92,6 @@ PlayerTab:CreateButton({
 
         if humanoid then
             humanoid.Sit = true
-        end
-    end
-})
-
--- Textbox to type a player's name
-PlayerTab:Textbox({
-    Name = "Sit on Player",
-    Callback = function(text)
-        local targetPlayer = game.Players:FindFirstChild(text)
-        if targetPlayer and targetPlayer.Character then
-            local localPlayer = game.Players.LocalPlayer
-            local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-            local humanoid = character:FindFirstChildOfClass("Humanoid")
-
-            if humanoid then
-                local weld = Instance.new("Weld")
-                weld.Part0 = character:FindFirstChild("HumanoidRootPart")
-                weld.Part1 = targetPlayer.Character:FindFirstChild("Head")
-                weld.C0 = CFrame.new(0, 2, 0)
-                weld.Parent = character:FindFirstChild("HumanoidRootPart")
-                humanoid.PlatformStand = true
-                humanoid.Weld = weld -- Save the weld to remove it later
-            end
-        end
-    end
-})
-
--- Button to stop sitting on the player's head
-PlayerTab:CreateButton({
-    Name = "Stop Sitting",
-    Description = "Stop sitting on the player's head",
-    Callback = function()
-        local localPlayer = game.Players.LocalPlayer
-        local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-        local humanoid = character:FindFirstChildOfClass("Humanoid")
-
-        if humanoid and humanoid.Weld then
-            humanoid.Weld:Destroy()
-            humanoid.PlatformStand = false
-            humanoid.Weld = nil
         end
     end
 })
