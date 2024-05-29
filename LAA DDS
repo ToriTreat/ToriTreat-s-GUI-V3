@@ -96,6 +96,13 @@ Tab:CreateButton({
     end
 })
 
+local Button = Tab:CreateButton{
+    Name = "Laa admin - ToriTreat",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ToriTreat/UnNamedScript/main/Laa%20Admin"))()
+    end
+}
+
 local Tab = Window:CreateTab("Scripts", 4483362458) -- Title, Image
 
 local Button = Tab:CreateButton({
